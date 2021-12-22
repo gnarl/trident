@@ -1,0 +1,2605 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head class="at-element-marker">
+  <title>Storage configuration options</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Storage configuration options" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/us-en/trident/trident-docker/stor-config.html" />
+	<meta property="og:description" content="See the configuration options available for your Astra Trident configurations." />
+  <meta property="og:image" content="https://docs.netapp.com/us-en/trident/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/>
+  
+  <meta name="description" content="See the configuration options available for your Astra Trident configurations.">
+  <meta name="keywords" content=" deploy, trident, docker, trident for docker, nfs, iscsi, protcol, nfs protocol, iscsi protocol, configure host, host config, storage config, options, variables, ontap, element, aws, cvs on gcp, cvs on aws, anf, azure netapp files">
+  
+  
+
+  <!-- Icons -->
+  <link rel="icon" href="/us-en/trident/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed -->
+  
+
+  <!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/us-en/trident/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/us-en/trident/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/us-en/trident/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/us-en/trident/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/us-en/trident/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/us-en/trident/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/us-en/trident/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/us-en/trident/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/us-en/trident/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/us-en/trident/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/us-en/trident/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/us-en/trident/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/us-en/trident/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/us-en/trident/css/tabbed-blocks.css" type="text/css">
+  <link rel="stylesheet" href='/us-en/trident/css/product-family.css' type="text/css">
+  
+
+  
+  <link rel='stylesheet' href='/us-en/trident/css/na-feature.css' type='text/css'>
+  
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
+  
+    <script src='/us-en/trident/js/na-search.js'></script>
+  
+
+  
+  <script src='/us-en/trident/js/na-pagenav.js'></script>
+  
+
+  <link rel='stylesheet' href='/us-en/trident/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/us-en/trident/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/us-en/trident/js/na-utility.js'></script>
+  <script src='/us-en/trident/js/clouddocs.js'></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    var head = document.getElementsByTagName('head')[0];
+    var adobe = document.createElement("script");
+    adobe.type = "text/javascript";
+    adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+    head.appendChild(adobe);
+  }
+  </script>
+  <script src='/us-en/trident/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/us-en/trident/js/toc.js'></script>
+  <script src='/us-en/trident/js/customscripts.js'></script>
+
+  <script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script><script async src="https://www.googletagmanager.com/gtag/js?id=UA-81697994-3"></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-81697994-3');
+  }
+  </script>
+  <script src='/us-en/trident/js/version-dropdown.js'></script>
+  <script src='/us-en/trident/js/product-family.js'></script>
+  <script src='/us-en/trident/js/FileSaver.min.js'></script>
+  <script src='/us-en/trident/js/jszip-utils.min.js'></script>
+  <script src='/us-en/trident/js/jszip.min.js'></script>
+  <script src='/us-en/trident/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">Product and Solutions</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">Support and Training</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">Community</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">Blog</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">Customer Stories</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/us-en/trident/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/us-en/trident/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/us-en/trident/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/us-en/trident/search.html"
+          data-type="widget" 
+          data-placeholder="Search Documentation" 
+          data-no-results-found="No results were found for {query}" 
+          data-did-you-mean="Search for {suggestion}." 
+          data-no-results-found-did-you-mean="No results found for {query}. Did you mean {suggestion}?" 
+          data-results-found="{hitCount} results found"  
+          data-sk-es-pf-indexes=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/us-en/trident/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+      <div id="ie-i18n-menu">
+      <span class="ie-i18n-lang">English</span>
+        <button class="ie-i18n-icon-container" type="button">
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/us-en/trident/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
+        <div class="n-language-selector-menu">
+          <ul class="n-menu__list">
+            <li class="n-menu__list-column">
+              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/us-en/trident/trident-docker/stor-config.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ja-jp/trident/trident-docker/stor-config.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-cn/trident/trident-docker/stor-config.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                </li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" >
+      <div class="n-pdf-header">
+  <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+    <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>Available PDFs<span>
+    </span>
+  </a>
+</div>
+<div class="n-pdf-body-container">
+  <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+        <a target="_blank" href="/us-en/trident/pdfs/fullsite-sidebar/Astra_Trident_21_10_documentation.pdf" >
+          <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>PDF of this doc site</a>
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Concepts.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Concepts
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Get_started.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Get started
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Deploy_with_Trident_operator.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Deploy with Trident operator
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Deploy_with_tridentctl.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Deploy with tridentctl
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Manage_Astra_Trident.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Manage Astra Trident
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Use_Astra_Trident.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Use Astra Trident
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Configure_backends.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Configure backends
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Configure_a_backend_with_ONTAP_SAN_drivers.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Configure a backend with ONTAP SAN drivers
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Configure_a_backend_with_ONTAP_NAS_drivers.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Configure a backend with ONTAP NAS drivers
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Perform_volume_operations.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Perform volume operations
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Astra_Trident_for_Docker.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Astra Trident for Docker
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Work_with_volumes.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Work with volumes
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/us-en/trident/pdfs/pages/trident-docker/stor-config.pdf" >
+    <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Best_practices_and_recommendations.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Best practices and recommendations
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          <a target="_blank" 
+            
+              href="/us-en/trident/pdfs/sidebar/Reference.pdf" 
+            
+          >
+            <img src="/us-en/trident/images/pdf.png" width="16" height="16"/>
+            Reference
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+</li></ul>
+  <div class="zip-pdf-link-container" style="display: none;">   
+    <a href="#" id="zipPdf">
+      <img src="/us-en/trident/images/pdf-zip.png" width="16" height="16"/>
+      <pre>Collection of separate PDF docs<span class="zip-size"></span></pre>
+    </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+</div>
+<script>
+  $("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+  });
+</script><div class="sidebar-nav-container">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/us-en/trident/index.html">
+        Astra Trident docs
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-rn.html">
+        Release notes
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Concepts</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-concepts/intro.html">
+        Intro to Astra Trident
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-concepts/ontap-drivers.html">
+        ONTAP drivers
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-concepts/provisioning.html">
+        Provisioning
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-concepts/snapshots.html">
+        Volume snapshots
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-concepts/virtual-storage-pool.html">
+        Virtual storage pools
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-concepts/vol-access-groups.html">
+        Volume access groups
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Get started</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-get-started/quickstart.html">
+        Try it out
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-get-started/requirements.html">
+        Requirements
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-get-started/kubernetes-deploy.html">
+        Deployment overview
+      </a></li><li class="subfolders "><a href="/us-en/trident/trident-get-started/kubernetes-deploy-operator.html">
+        <div class="na-navbar-padding"> Deploy with Trident operator</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-get-started/kubernetes-customize-deploy.html">
+        Customize Trident operator deployment
+      </a></li></ul></li><li class="subfolders "><a href="/us-en/trident/trident-get-started/kubernetes-deploy-tridentctl.html">
+        <div class="na-navbar-padding"> Deploy with tridentctl</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-get-started/kubernetes-customize-deploy-tridentctl.html">
+        Customize tridentctl deployment
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-get-started/kubernetes-postdeployment.html">
+        What's next?
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Manage Astra Trident</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-managing-k8s/upgrade-trident.html">
+        Upgrade Astra Trident
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-managing-k8s/upgrade-operator.html">
+        Upgrade with the operator
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-managing-k8s/upgrade-tridentctl.html">
+        Upgrade with tridentctl
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-managing-k8s/uninstall-trident.html">
+        Uninstall Astra Trident
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-managing-k8s/downgrade-trident.html">
+        Downgrade Astra Trident
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Use Astra Trident</div>
+      </a>
+      <ul><li class="subfolders "><a href="/us-en/trident/trident-use/backends.html">
+        <div class="na-navbar-padding"> Configure backends</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/anf.html">
+        Configure an ANF backend
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/ads.html">
+        Configure an ADS backend
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/aws.html">
+        Configure a CVS for AWS backend
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/gcp.html">
+        Configure a CVS for GCP backend
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/element.html">
+        Configure a NetApp HCI or SolidFire backend
+      </a></li><li class="subfolders "><a href="/us-en/trident/trident-use/ontap-san.html">
+        <div class="na-navbar-padding"> Configure a backend with ONTAP SAN drivers</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/ontap-san-prep.html">
+        Preparation
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/ontap-san-examples.html">
+        Configuration options and examples
+      </a></li></ul></li><li class="subfolders "><a href="/us-en/trident/trident-use/ontap-nas.html">
+        <div class="na-navbar-padding"> Configure a backend with ONTAP NAS drivers</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/ontap-nas-prep.html">
+        Preparation
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/ontap-nas-examples.html">
+        Configuration options and examples
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/trident-fsx.html">
+        Use Astra Trident with Amazon FSx for NetApp ONTAP
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/backend-kubectl.html">
+        Create backends with kubectl
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/backend_ops_kubectl.html">
+        Perform backend management with kubectl
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/backend_ops_tridentctl.html">
+        Perform backend management with tridentctl
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/backend_options.html">
+        Move between backend management options
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/manage-stor-class.html">
+        Manage storage classes
+      </a></li><li class="subfolders "><a href="/us-en/trident/trident-use/vol-operations.html">
+        <div class="na-navbar-padding"> Perform volume operations</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/csi-topology.html">
+        Use CSI Topology
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/vol-snapshots.html">
+        Work with snapshots
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/vol-expansion.html">
+        Expand volumes
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/vol-import.html">
+        Import volumes
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/worker-node-prep.html">
+        Prepare the worker node
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/automatic-workernode.html">
+        Automatic worker node preparation
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-use/monitor-trident.html">
+        Monitor Astra Trident
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Astra Trident for Docker</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-docker/prereqs-docker.html">
+        Prerequisites for deployment
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-docker/deploy-docker.html">
+        Deploy Astra Trident
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-docker/upgrade-uninstall-docker.html">
+        Upgrade or uninstall Trident
+      </a></li><li class="subfolders "><a href="/us-en/trident/trident-docker/volumes-docker.html">
+        <div class="na-navbar-padding"> Work with volumes</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-docker/volume-driver-options.html">
+        Driver-specific volume options
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-docker/collect-logs-docker.html">
+        Collect logs
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-docker/multiple-instances-docker.html">
+        Manage multiple Astra Trident instances
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/us-en/trident/trident-docker/stor-config.html">
+        Storage configuration options
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-docker/known-issues-docker.html">
+        Known issues
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/faq.html">
+        FAQs
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/get-help.html">
+        Support
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/troubleshooting.html">
+        Troubleshooting
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Best practices and recommendations</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-reco/deploy-reco.html">
+        Deployment
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-reco/storage-config-best-practices.html">
+        Storage configuration
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-reco/integrate-trident.html">
+        Astra Trident integration
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-reco/backup.html">
+        Data protection
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-reco/security-reco.html">
+        Security
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Reference</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-reference/trident-ports.html">
+        Astra Trident ports
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-reference/rest-api.html">
+        Astra Trident REST API
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-reference/trident-cl.html">
+        Command-line options
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-reference/k8s-netapp.html">
+        NetApp products integrated with Kubernetes
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-reference/objects.html">
+        Kubernetes and Astra Trident objects
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/trident-reference/tridentctl.html">
+        tridentctl commands and options
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/earlier-versions.html">
+        Earlier versions
+      </a></li><li class=" "><a class="na-navbar-padding" href="/us-en/trident/legal.html">
+        Legal notices
+      </a></li></ul>
+</div>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container -->
+    <article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://www.netapp.com">Home</a>
+        </li>
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">Documentation</a>
+        </li>
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/us-en/trident/">Astra&nbsp;Trident</a>
+        </li>
+        <li class="n-breadcrumb__list-item">
+          Storage configuration options
+        </li>
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">Storage configuration options</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2021-09-20 11:55:42 +0000">09/20/2021</time>
+    
+  
+
+<span>Contributors
+</span>
+
+
+</p>
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>See the configuration options available for your Astra Trident configurations.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="global-configuration-options">Global configuration options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>These configuration options apply to all Astra Trident configurations, regardless of the storage platform being used.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Config file version number</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>1</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>storageDriverName</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Name of storage driver</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><code>ontap-nas</code>, <code>ontap-san</code>, <code>ontap-nas-economy</code>,<br>
+<code>ontap-nas-flexgroup</code>, <code>solidfire-san</code>, <code>azure-netapp-files</code>, <code>aws-cvs</code>, or <code>gcp-cvs</code></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>storagePrefix</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Optional prefix for volume names. Default: “netappdvp_”.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>staging_</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>limitVolumeSize</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Optional restriction on volume sizes. Default: “” (not enforced)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>10g</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/tip.svg" alt="Tip">
+</td>
+<td class="content">
+Do not use <code>storagePrefix</code> (including the default) for Element backends. By default, the <code>solidfire-san</code> driver will ignore this setting and not use a prefix. We recommend using either a specific tenantID for Docker volume mapping or using the attribute data which is populated with the Docker version, driver info, and raw name from Docker in cases where any name munging may have been used.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Default options are available to avoid having to specify them on every volume you create. The <code>size</code> option is available for all the controller types. See the ONTAP configuration section for an example of how to set the default volume size.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Optional default size for new volumes. Default: “1G”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>10G</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ontap-configuration">ONTAP configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In addition to the global configuration values above, when using ONTAP, the following top-level options are available.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>managementLIF</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>IP address of ONTAP management LIF. You can specify a fully-qualified domain name (FQDN).</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>10.0.0.1</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dataLIF</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>IP address of protocol LIF; will be derived if not specified. For the <code>ontap-nas</code> drivers <strong>only</strong>, you can specify an FQDN, in which case the FQDN will be used for the NFS mount operations. For the <code>ontap-san</code> drivers, the default is to use all data LIF IPs from the SVM and to use iSCSI multipath. Specifying an IP address for <code>dataLIF</code> for the <code>ontap-san</code> drivers forces the driver to disable multipath and use only the specified address.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>10.0.0.2</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>svm</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Storage virtual machine to use (required, if management LIF is a cluster LIF)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>svm_nfs</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>username</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Username to connect to the storage device</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>vsadmin</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Password to connect to the storage device</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>secret</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aggregate</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Aggregate for provisioning (optional; if set, must be assigned to the SVM). For the <code>ontap-nas-flexgroup</code> driver, this option is ignored. All aggregates assigned to the SVM are used to provision a FlexGroup Volume.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>aggr1</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>limitAggregateUsage</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Optional, fail provisioning if usage is above this percentage</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>75%</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nfsMountOptions</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Fine grained control of NFS mount options; defaults to “-o nfsvers=3”. <strong>Available only for the <code>ontap-nas</code> and <code>ontap-nas-economy</code> drivers</strong>. <a href="https://www.netapp.com/pdf.html?item=/media/10720-tr-4067.pdf" target="_blank" rel="noopener">See NFS host configuration information here</a>.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>-o nfsvers=4</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>igroupName</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The igroup used by the plugin; defaults to “netappdvp”. <strong>Available only for the `ontap-san`driver</strong>.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>myigroup</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>limitVolumeSizee</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Maximum requestable volume size and qtree parent volume size. <strong>For the <code>ontap-nas-economy</code> driver, this option additionally limits the size of the FlexVols that it creates</strong>.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>300g</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>qtreesPerFlexvol</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Maximum qtrees per FlexVol, must be in range [50, 300], default is 200.  <strong>For the <code>ontap-nas-economy</code> driver, this option allows customizing the maximum number of qtrees per FlexVol</strong>.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>300</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Default options are available to avoid having to specify them on every volume you create:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>spaceReserve</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Space reservation mode; “none” (thin provisioned) or “volume” (thick)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>none</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>snapshotPolicy</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Snapshot policy to use, default is “none”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>none</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>snapshotReserve</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Snapshot reserve percentage, default is “” to accept ONTAP’s default</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>10</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>splitOnClone</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Split a clone from its parent upon creation, defaults to “false”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>false</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>encryption</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Enable NetApp Volume Encryption, defaults to “false”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>true</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>unixPermissions</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>NAS option for provisioned NFS volumes, defaults to “777”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>777</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>snapshotDir</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>NAS option for access to the <code>.snapshot</code> directory, defaults to “false”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>true</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exportPolicy</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>NAS option for the NFS export policy to use, defaults to “default”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>default</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>securityStyle</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>NAS option for access to the provisioned NFS volume, defaults to “unix”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>mixed</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fileSystemType</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>SAN option to select the file system type, defaults to “ext4”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>xfs</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tieringPolicy</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Tiering policy to use, default is “none”; “snapshot-only” for pre-ONTAP 9.5 SVM-DR configuration</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>none</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="scaling-options">Scaling options</h3>
+<div class="paragraph">
+<p>The <code>ontap-nas</code> and <code>ontap-san</code> drivers create an ONTAP FlexVol for each Docker volume. ONTAP supports up to 1000 FlexVols per cluster node with a cluster maximum of 12,000 FlexVols. If your Docker volume requirements fit within that limitation, the <code>ontap-nas</code> driver is the preferred NAS solution due to the additional features offered by FlexVols, such as Docker-volume-granular snapshots and cloning.</p>
+</div>
+<div class="paragraph">
+<p>If you need more Docker volumes than can be accommodated by the FlexVol limits, choose the <code>ontap-nas-economy</code> or the <code>ontap-san-economy</code> driver.</p>
+</div>
+<div class="paragraph">
+<p>The <code>ontap-nas-economy</code> driver creates Docker volumes as ONTAP Qtrees within a pool of automatically managed FlexVols. Qtrees offer far greater scaling, up to 100,000 per cluster node and 2,400,000 per cluster, at the expense of some features. The <code>ontap-nas-economy</code> driver does not support Docker-volume-granular snapshots or cloning.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="Note">
+</td>
+<td class="content">
+The <code>ontap-nas-economy</code> driver is not currently supported in Docker Swarm, because Swarm does not orchestrate volume creation across multiple nodes.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The <code>ontap-san-economy</code> driver creates Docker volumes as ONTAP LUNs within a shared pool of automatically managed FlexVols. This way, each FlexVol is not restricted to only one LUN and it offers better scalability for SAN workloads. Depending on the storage array, ONTAP supports up to 16384 LUNs per cluster. Because the volumes are LUNs underneath, this driver supports Docker-volume-granular snapshots and cloning.</p>
+</div>
+<div class="paragraph">
+<p>Choose the <code>ontap-nas-flexgroup</code> driver to increase parallelism to a single volume that can grow into the petabyte range with billions of files. Some ideal use cases for FlexGroups include AI/ML/DL, big data and analytics, software builds, streaming, file repositories, and so on. Trident uses all aggregates assigned to an SVM when provisioning a FlexGroup Volume. FlexGroup support in Trident also has the following considerations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Requires ONTAP version 9.2 or greater.</p>
+</li>
+<li>
+<p>As of this writing, FlexGroups only support NFS v3.</p>
+</li>
+<li>
+<p>Recommended to enable the 64-bit NFSv3 identifiers for the SVM.</p>
+</li>
+<li>
+<p>The minimum recommended FlexGroup size is 100GB.</p>
+</li>
+<li>
+<p>Cloning is not supported for FlexGroup Volumes.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For information about FlexGroups and workloads that are appropriate for FlexGroups see the <a href="https://www.netapp.com/pdf.html?item=/media/12385-tr4571pdf.pdf" target="_blank" rel="noopener">NetApp FlexGroup Volume Best Practices and Implementation Guide</a>.</p>
+</div>
+<div class="paragraph">
+<p>To get advanced features and huge scale in the same environment, you can run multiple instances of the Docker Volume Plugin, with one using <code>ontap-nas</code> and another using <code>ontap-nas-economy</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="example-ontap-configuration-files">Example ONTAP configuration files</h3>
+<div class="paragraph">
+<p><strong>NFS example for <code>ontap-nas</code> driver</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "username": "vsadmin",
+    "password": "secret",
+    "aggregate": "aggr1",
+    "defaults": {
+      "size": "10G",
+      "spaceReserve": "none",
+      "exportPolicy": "default"
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>NFS example for <code>ontap-nas-flexgroup</code> driver</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "ontap-nas-flexgroup",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "username": "vsadmin",
+    "password": "secret",
+    "defaults": {
+      "size": "100G",
+      "spaceReserve": "none",
+      "exportPolicy": "default"
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>NFS example for <code>ontap-nas-economy</code> driver</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "ontap-nas-economy",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.2",
+    "svm": "svm_nfs",
+    "username": "vsadmin",
+    "password": "secret",
+    "aggregate": "aggr1"
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>iSCSI example for <code>ontap-san</code> driver</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "ontap-san",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.3",
+    "svm": "svm_iscsi",
+    "username": "vsadmin",
+    "password": "secret",
+    "aggregate": "aggr1",
+    "igroupName": "myigroup"
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>NFS example for <code>ontap-san-economy</code> driver</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "ontap-san-economy",
+    "managementLIF": "10.0.0.1",
+    "dataLIF": "10.0.0.3",
+    "svm": "svm_iscsi_eco",
+    "username": "vsadmin",
+    "password": "secret",
+    "aggregate": "aggr1",
+    "igroupName": "myigroup"
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="element-software-configuration">Element software configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In addition to the global configuration values, when using Element software (NetApp HCI/SolidFire), these options are available.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Endpoint</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="https://&lt;login&gt;:&lt;password&gt;@&lt;mvip&gt;/json-rpc/&lt;element-version&gt" class="bare">https://&lt;login&gt;:&lt;password&gt;@&lt;mvip&gt;/json-rpc/&lt;element-version&gt</a>;</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p><a href="https://admin:admin@192.168.160.3/json-rpc/8.0" class="bare">https://admin:admin@192.168.160.3/json-rpc/8.0</a></p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SVIP</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>iSCSI IP address and port</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>10.0.0.7:3260</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>TenantName</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>SolidFireF Tenant to use (created if not found)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“docker”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>InitiatorIFace</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Specify interface when restricting iSCSI traffic to non-default interface</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“default”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Types</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>QoS specifications</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>See example below</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>LegacyNamePrefix</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Prefix for upgraded Trident installs. If you used a version of Trident prior to 1.3.2 and perform an upgrade with existing volumes, you’ll need to set this value to access your old volumes that were mapped via the volume-name method.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“netappdvp-”</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>The <code>solidfire-san</code> driver does not support Docker Swarm.</p>
+</div>
+<div class="sect2">
+<h3 id="example-element-software-configuration-file">Example Element software configuration file</h3>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "solidfire-san",
+    "Endpoint": "https://admin:admin@192.168.160.3/json-rpc/8.0",
+    "SVIP": "10.0.0.7:3260",
+    "TenantName": "docker",
+    "InitiatorIFace": "default",
+    "Types": [
+        {
+            "Type": "Bronze",
+            "Qos": {
+                "minIOPS": 1000,
+                "maxIOPS": 2000,
+                "burstIOPS": 4000
+            }
+        },
+        {
+            "Type": "Silver",
+            "Qos": {
+                "minIOPS": 4000,
+                "maxIOPS": 6000,
+                "burstIOPS": 8000
+            }
+        },
+        {
+            "Type": "Gold",
+            "Qos": {
+                "minIOPS": 6000,
+                "maxIOPS": 8000,
+                "burstIOPS": 10000
+            }
+        }
+    ]
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cloud-volumes-service-cvs-on-aws-configuration">Cloud Volumes Service (CVS) on AWS configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In addition to the global configuration values, when using CVS on AWS, these options are available. The required values are all available in the CVS web user interface.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>apiRegion</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>CVS account region (required). Can be found in the CVS web portal in Account settings &gt; API access.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“us-east-1”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>apiURL</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>CVS account API URL (required). Can be found in the CVS web portal in Account settings &gt; API access.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“https://cds-aws-bundles.netapp.com:8080/v1”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>apiKey</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>CVS account API key (required). Can be found in the CVS web portal in Account settings &gt; API access.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“docker”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>secretKey</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>CVS account secret key (required). Can be found in the CVS web portal in Account settings &gt; API access.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“default”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>proxyURL</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Proxy URL if proxy server required to connect to the CVS account. The proxy server can either be an HTTP proxy or an HTTPS proxy. In case of an HTTPS proxy, certificate validation is skipped to allow the usage of self-signed certificates in the proxy server. <strong>Proxy servers with authentication enabled are not supported</strong>.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“http://proxy-server-hostname/”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nfsMountOptions</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>NFS mount options; defaults to “-o nfsvers=3”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“nfsvers=3,proto=tcp,timeo=600”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>serviceLevel</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Performance level (standard, premium, extreme), defaults to “standard”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“premium”</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="Note">
+</td>
+<td class="content">
+The NetApp Cloud Volumes Service for AWS does not support volumes less than 100 GB in size. To make it easier to deploy applications, Trident automatically creates 100 GB volumes if a smaller volume is requested.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When using CVS on AWS, these default volume option settings are available.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exportRule</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>NFS access list (addresses and/or CIDR subnets), defaults to “0.0.0.0/0”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“10.0.1.0/24,10.0.2.100”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>snapshotDir</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Controls visibility of the <code>.snapshot</code> directory</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“false”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>snapshotReserve</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Snapshot reserve percentage, default is “” to accept the CVS default of 0</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“10”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Volume size, defaults to “100GB”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“500G”</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="example-cvs-on-aws-configuration-file">Example CVS on AWS configuration file</h3>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "aws-cvs",
+    "apiRegion": "us-east-1",
+    "apiURL": "https://cds-aws-bundles.netapp.com:8080/v1",
+    "apiKey":    "znHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE",
+    "secretKey": "rR0rUmWXfNioN1KhtHisiSAnoTherboGuskey6pU",
+    "region": "us-east-1",
+    "proxyURL": "http://proxy-server-hostname/",
+    "serviceLevel": "premium",
+    "limitVolumeSize": "200Gi",
+    "defaults": {
+        "snapshotDir": "true",
+        "snapshotReserve": "5",
+        "exportRule": "10.0.0.0/24,10.0.1.0/24,10.0.2.100",
+        "size": "100Gi"
+    }
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cloud-volumes-service-cvs-on-gcp-configuration">Cloud Volumes Service (CVS) on GCP configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Trident now includes support for smaller volumes with the default CVS service type on <a href="https://cloud.google.com/architecture/partners/netapp-cloud-volumes/service-types" target="_blank" rel="noopener">GCP</a>. For backends created with <code>storageClass=software</code>, volumes will now have a minimum provisioning size of 300 GiB. <strong>NetApp recommends customers consume sub-1TiB volumes for non-production workloads</strong>. CVS currently provides this feature under Controlled Availability and does not provide technical support.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Sign up for access to sub-1TiB volumes <a href="https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform" target="_blank" rel="noopener">here</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/warning.svg" alt="Warning">
+</td>
+<td class="content">
+When deploying backends using the default CVS service type <code>storageClass=software</code>, you should obtain access to the sub-1TiB volumes feature on GCP for the Project Number(s) and Project ID(s) in question. This is necessary for Trident to provision sub-1TiB volumes. If not, volume creations <strong>will fail</strong> for PVCs that are &lt;600 GiB. Obtain access to sub-1TiB volumes using <a href="https://docs.google.com/forms/d/e/1FAIpQLSc7_euiPtlV8bhsKWvwBl3gm9KUL4kOhD7lnbHC3LlQ7m02Dw/viewform" target="_blank" rel="noopener">this form</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Volumes created by Trident for the default CVS service level will be provisioned as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>PVCs that are smaller than 300 GiB will result in Trident creating a 300 GiB CVS volume.</p>
+</li>
+<li>
+<p>PVCs that are between 300 GiB to 600 GiB will result in Trident creating a CVS volume of the requested size.</p>
+</li>
+<li>
+<p>PVCs that are between 600 GiB and 1 TiB will result in Trident creating a 1TiB CVS volume.</p>
+</li>
+<li>
+<p>PVCs that are greater than 1 TiB will result in Trident creating a CVS volume of the requested size.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In addition to the global configuration values, when using CVS on GCP, these options are available.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>apiRegion</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>CVS account region (required). Is the GCP region where this backend will provision volumes.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“us-west2”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>projectNumber</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>GCP project number (required). Can be found in the GCP web portal’s Home screen.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“123456789012”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hostProjectNumber</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>GCP shared VPC host project number (required if using a shared VPC)</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“098765432109”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>apiKey</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>API key for GCP service account with CVS admin role (required). Is the JSON-formatted contents of a GCP service account’s private key file (copied verbatim into the backend config file). The service account must have the netappcloudvolumes.admin role.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>(contents of the private key file)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>secretKey</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>CVS account secret key (required). Can be found in the CVS web portal in Account settings &gt; API access.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“default”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>proxyURL</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Proxy URL if proxy server required to connect to the CVS account. The proxy server can either be an HTTP proxy or an HTTPS proxy. In case of an HTTPS proxy, certificate validation is skipped to allow the usage of self-signed certificates in the proxy server. <strong>Proxy servers with authentication enabled are not supported</strong>.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“http://proxy-server-hostname/”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nfsMountOptions</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>NFS mount options; defaults to “-o nfsvers=3”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“nfsvers=3,proto=tcp,timeo=600”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>serviceLevel</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Performance level (standard, premium, extreme), defaults to “standard”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“premium”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>network</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>GCP network used for CVS volumes, defaults to “default”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“default”</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="Note">
+</td>
+<td class="content">
+If using a shared VPC network, you should specify both <code>projectNumber</code> and <code>hostProjectNumber</code>. In that case, <code>projectNumber</code> is the service project and <code>hostProjectNumber</code> is the host project.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="Note">
+</td>
+<td class="content">
+The NetApp Cloud Volumes Service for GCP does not support CVS-Performance volumes less than 100 GiB in size, or CVS volumes less than 300 GiB in size. To make it easier to deploy applications, Trident automatically creates volumes of the minimum size if a too-small volume is requested.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When using CVS on GCP, these default volume option settings are available.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exportRule</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>NFS access list (addresses and/or CIDR subnets), defaults to “0.0.0.0/0”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“10.0.1.0/24,10.0.2.100”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>snapshotDir</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Controls visibility of the <code>.snapshot</code> directory</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“false”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>snapshotReserve</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Snapshot reserve percentage, default is “” to accept the CVS default of 0</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“10”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Volume size, defaults to “100GiB”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“10T”</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="example-cvs-on-gcp-configuration-file">Example CVS on GCP configuration file</h3>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "gcp-cvs",
+    "projectNumber": "012345678901",
+    "apiRegion": "us-west2",
+    "apiKey": {
+        "type": "service_account",
+        "project_id": "my-gcp-project",
+        "private_key_id": "1234567890123456789012345678901234567890",
+        "private_key": "-----BEGIN PRIVATE KEY-----\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nznHczZsrrtHisIsAbOguSaPIKeyAZNchRAGzlzZE4jK3bl/qp8B4Kws8zX5ojY9m\nXsYg6gyxy4zq7OlwWgLwGa==\n-----END PRIVATE KEY-----\n",
+        "client_email": "cloudvolumes-admin-sa@my-gcp-project.iam.gserviceaccount.com",
+        "client_id": "123456789012345678901",
+        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+        "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cloudvolumes-admin-sa%40my-gcp-project.iam.gserviceaccount.com"
+    },
+    "proxyURL": "http://proxy-server-hostname/"
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="azure-netapp-files-configuration">Azure NetApp Files configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To configure and use an <a href="https://azure.microsoft.com/en-us/services/netapp/" target="_blank" rel="noopener">Azure NetApp Files</a> backend, you will need the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>subscriptionID</code> from an Azure subscription with Azure NetApp Files enabled</p>
+</li>
+<li>
+<p><code>tenantID</code>, <code>clientID</code>, and <code>clientSecret</code> from an <a href="https://docs.microsoft.com/en-us/azure/active-directory/develop/howto-create-service-principal-portal" target="_blank" rel="noopener">App Registration</a> in Azure Active Directory with sufficient permissions to the Azure NetApp Files service</p>
+</li>
+<li>
+<p>Azure location that contains at least one <a href="https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet" target="_blank" rel="noopener">delegated subnet</a></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/tip.svg" alt="Tip">
+</td>
+<td class="content">
+If you’re using Azure NetApp Files for the first time or in a new location, some initial configuration is required that the <a href="https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes?tabs=azure-portal" target="_blank" rel="noopener">quickstart guide</a> will walk you through.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="Note">
+</td>
+<td class="content">
+Astra Trident 21.04.0 and earlier do not support Manual QoS capacity pools.
+</td>
+</tr>
+</table>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>version</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Always 1</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>storageDriverName</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“azure-netapp-files”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>backendName</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Custom name for the storage backend</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Driver name + “_” + random characters</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subscriptionID</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The subscription ID from your Azure subscription</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tenantID</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The tenant ID from an App Registration</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clientID</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The client ID from an App Registration</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>clientSecret</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The client secret from an App Registration</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>serviceLevel</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>One of “Standard”, “Premium” or “Ultra”</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“” (random)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>location</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Name of the Azure location new volumes will be created in</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“” (random)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>virtualNetwork</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Name of a virtual network with a delegated subnet</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“” (random)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>subnet</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Name of a subnet delegated to <code>Microsoft.Netapp/volumes</code></p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“” (random)</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nfsMountOptions</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Fine-grained control of NFS mount options</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“-o nfsvers=3”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>limitVolumeSize</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Fail provisioning if requested volume size is above this value</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“” (not enforced by default)</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/trident/images/note.svg" alt="Note">
+</td>
+<td class="content">
+The Azure NetApp Files service does not support volumes less than 100 GB in size. To make it easier to deploy applications, Trident automatically creates 100 GB volumes if a smaller volume is requested.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can control how each volume is provisioned by default using these options in a special section of the configuration.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Option</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exportRule</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The export rule(s) for new volumes. Must be a comma-separated list of any combination of IPv4 addresses or IPv4 subnets in CIDR notation.</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“0.0.0.0/0”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>snapshotDir</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>Controls visibility of the <code>.snapshot</code> directory</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“false”</p>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>The default size of new volumes</p>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="paragraph">
+<p>“100G”</p>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="example-azure-netapp-files-configurations">Example Azure NetApp Files configurations</h3>
+<div class="paragraph">
+<p><strong>Example 1: Minimal backend configuration for azure-netapp-files</strong></p>
+</div>
+<div class="paragraph">
+<p>This is the absolute minimum backend configuration. With this configuration, Trident will discover all of your NetApp accounts, capacity pools, and subnets delegated to ANF in every location worldwide, and place new volumes on one of them randomly.</p>
+</div>
+<div class="paragraph">
+<p>This configuration is useful when you’re just getting started with ANF and trying things out, but in practice you’re going to want to provide additional scoping for the volumes you provision to make sure that they have the characteristics you want and end up on a network that’s close to the compute that’s using it. See the subsequent examples for more details.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "azure-netapp-files",
+    "subscriptionID": "9f87c765-4774-fake-ae98-a721add45451",
+    "tenantID": "68e4f836-edc1-fake-bff9-b2d865ee56cf",
+    "clientID": "dd043f63-bf8e-fake-8076-8de91e5713aa",
+    "clientSecret": "SECRET"
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example 2: Single location and specific service level for azure-netapp-files</strong></p>
+</div>
+<div class="paragraph">
+<p>This backend configuration places volumes in Azure’s “eastus” location in a “Premium” capacity pool. Trident automatically discovers all of the subnets delegated to ANF in that location and will place a new volume on one of them randomly.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "azure-netapp-files",
+    "subscriptionID": "9f87c765-4774-fake-ae98-a721add45451",
+    "tenantID": "68e4f836-edc1-fake-bff9-b2d865ee56cf",
+    "clientID": "dd043f63-bf8e-fake-8076-8de91e5713aa",
+    "clientSecret": "SECRET",
+    "location": "eastus",
+    "serviceLevel": "Premium"
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example 3: Advanced configuration for azure-netapp-files</strong></p>
+</div>
+<div class="paragraph">
+<p>This backend configuration further reduces the scope of volume placement to a single subnet, and also modifies some volume provisioning defaults.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "azure-netapp-files",
+    "subscriptionID": "9f87c765-4774-fake-ae98-a721add45451",
+    "tenantID": "68e4f836-edc1-fake-bff9-b2d865ee56cf",
+    "clientID": "dd043f63-bf8e-fake-8076-8de91e5713aa",
+    "clientSecret": "SECRET",
+    "location": "eastus",
+    "serviceLevel": "Premium",
+    "virtualNetwork": "my-virtual-network",
+    "subnet": "my-subnet",
+    "nfsMountOptions": "nfsvers=3,proto=tcp,timeo=600",
+    "limitVolumeSize": "500Gi",
+    "defaults": {
+        "exportRule": "10.0.0.0/24,10.0.1.0/24,10.0.2.100",
+        "size": "200Gi"
+    }
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Example 4: Virtual storage pools with azure-netapp-files</strong></p>
+</div>
+<div class="paragraph">
+<p>This backend configuration defines multiple <a href="../trident-concepts/virtual-storage-pool.html" target="_blank" rel="noopener">pools of storage</a> in a single file. This is useful when you have multiple capacity pools supporting different service levels and you want to create storage classes in Kubernetes that represent those.</p>
+</div>
+<div class="paragraph">
+<p>This is just scratching the surface of the power of virtual storage pools and their labels.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{
+    "version": 1,
+    "storageDriverName": "azure-netapp-files",
+    "subscriptionID": "9f87c765-4774-fake-ae98-a721add45451",
+    "tenantID": "68e4f836-edc1-fake-bff9-b2d865ee56cf",
+    "clientID": "dd043f63-bf8e-fake-8076-8de91e5713aa",
+    "clientSecret": "SECRET",
+    "nfsMountOptions": "nfsvers=3,proto=tcp,timeo=600",
+    "labels": {
+        "cloud": "azure"
+    },
+    "location": "eastus",
+
+    "storage": [
+        {
+            "labels": {
+                "performance": "gold"
+            },
+            "serviceLevel": "Ultra"
+        },
+        {
+            "labels": {
+                "performance": "silver"
+            },
+            "serviceLevel": "Premium"
+        },
+        {
+            "labels": {
+                "performance": "bronze"
+            },
+            "serviceLevel": "Standard",
+        }
+    ]
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  
+  <!-- Start Page Toolbar -->
+  <div class="page-nav-toolbar">
+    <div id="version-dropdown"></div>
+    <div class="page-nav-contribute"  >
+      <a target="_blank" href="https://github.com/NetAppDocs/trident/issues/new?body=Page%3A%20[Storage configuration options](https://docs.netapp.com/us-en/trident/trident-docker/stor-config.html)" class="page-nav-contribute-link" role="button"><img src="/us-en/trident/images/discuss-sm.svg" class="github-icon" />Request doc changes</a>
+      <a target="_blank" href="https://github.com/NetAppDocs/trident/blob/main/trident-docker/stor-config.adoc" class="page-nav-contribute-link" role="button"><img src="/us-en/trident/images/edit-sm.svg" class="github-icon" />Edit this page</a>
+      <a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/us-en/trident/images/article-sm.svg" class="github-icon" />Learn how to contribute</a>
+    </div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">ON THIS PAGE</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  <div style="clear: both"></div><!-- Main needs to have height -->
+</div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+            <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2021 NetApp, Inc.</a>
+            </li>
+
+</ul>
+</div>
+<div class="n-footer__social-links">
+<ul class="n-footer__social-link-list">
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com" target="_blank" title="blog" alt="blog">
+<span class="n-footer__social-link-text">blog</span>
+<svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+  <title>blog@</title>
+  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/us-en/trident/common/svg/sprite.svg#blog"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/" target="_blank" title="community" alt="community">
+<span class="n-footer__social-link-text">community</span>
+<svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+<title>community@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/us-en/trident/common/svg/sprite.svg#comments"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp" target="_blank" title="twitter" alt="twitter">
+<span class="n-footer__social-link-text">twitter</span>
+<svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+<title>twitter@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/us-en/trident/common/svg/sprite.svg#twitter"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp" target="_blank" title="facebook" alt="facebook">
+<span class="n-footer__social-link-text">facebook</span>
+<svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+<title>facebook@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/us-en/trident/common/svg/sprite.svg#facebook"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-linkedin" href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+<span class="n-footer__social-link-text">linkedin</span>
+<svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+<title>linkedin@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/us-en/trident/common/svg/sprite.svg#linkedin"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-youtube" href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+<span class="n-footer__social-link-text">youtube</span>
+<svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+<title>youtube@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/us-en/trident/common/svg/sprite.svg#youtube"></use>
+</svg>
+
+</a>
+</li>
+<li class="n-footer__social-link-list-item">
+<a class="n-footer__social-link" data-ntap-social="follow-slideshare" href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+<span class="n-footer__social-link-text">slideshare</span>
+<svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+<title>slideshare@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/us-en/trident/common/svg/sprite.svg#slideshare"></use>
+</svg>
+
+</a>
+</li>
+</ul>
+</div>
+
+</div>
+<div class="n-footer__bottom-right">
+  <p class="n-footer__fine-print">Have feedback for our website?<a target="_self" href="javascript:netapp_mailto()" class="n-footer__copyright">Let us know</a>
+  <a href="https://docs.netapp.com/us-en/announcements/" class="n-footer__copyright">Announcements</a>
+  </p>
+</div>
+</div>
+</div>
+</footer>
+
+      </div>
+
+      <!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/us-en/trident/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/us-en/trident/js/prism.js'></script>
+      <script type="text/javascript" src='/us-en/trident/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/us-en/trident/js/www-ntap.js'></script>
+    <script src='/us-en/trident/js/tabbed-blocks.js'></script>
+  </body>
+
+  
+</html>
